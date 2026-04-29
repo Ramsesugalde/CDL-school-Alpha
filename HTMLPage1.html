@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDL Alpha Driving School | Get Your CDL License</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#F0A500;--gold-light:#FFD166;--black:#080808;--dark:#111;--dark2:#161616;--dark3:#1e1e1e;--white:#F5F0E8;--gray:#888;--success:#27ae60}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+/* PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0%;z-index:9999;transition:width 0.1s linear}
+
+/* NAV */
+nav{position:fixed;top:3px;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:rgba(8,8,8,0.94);border-bottom:1px solid rgba(240,165,0,0.15);backdrop-filter:blur(16px);transition:padding 0.3s}
+nav.scrolled{padding:0.65rem 3rem;border-bottom-color:rgba(240,165,0,0.3)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--gold);letter-spacing:2px;cursor:pointer}
+.nav-logo span{color:var(--white)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-link{color:var(--gray);text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;position:relative;padding-bottom:2px}
+.nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width 0.25s}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+.nav-link:hover,.nav-link.active{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--black)!important;padding:0.5rem 1.4rem;border-radius:2px;font-weight:700;transition:background 0.2s!important}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--gold-light)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:var(--white);transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,8,0.98);z-index:190;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:3px;color:var(--white);text-decoration:none;transition:color 0.2s}
+.mobile-menu a:hover{color:var(--gold)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:8rem 3rem 5rem}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#080808 0%,#0f0f00 60%,#1a1200 100%)}
+.hero-grid{position:absolute;inset:0;opacity:0.06;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:50px 50px;animation:gridShift 20s linear infinite}
+@keyframes gridShift{0%{background-position:0 0}100%{background-position:50px 50px}}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(240,165,0,0.08) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:0.7}}
+.hero-content{position:relative;z-index:2;max-width:780px}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(240,165,0,0.1);border:1px solid rgba(240,165,0,0.35);color:var(--gold);padding:0.4rem 1.2rem;font-size:0.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:2px;margin-bottom:1.5rem;animation:fadeUp 0.6s ease both}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7.5rem);line-height:0.9;letter-spacing:3px;color:var(--white);animation:fadeUp 0.7s 0.1s ease both}
+.hero h1 .gold{color:var(--gold);display:block}
+.hero-sub{margin-top:1.5rem;font-size:1.1rem;color:#aaa;line-height:1.75;max-width:570px;animation:fadeUp 0.7s 0.2s ease both}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.5rem;animation:fadeUp 0.7s 0.3s ease both;flex-wrap:wrap}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1}
+.hero-stat-label{font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:0.2rem}
+.hero-ctas{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;animation:fadeUp 0.7s 0.4s ease both}
+.btn-primary{background:var(--gold);color:var(--black);padding:0.95rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:background 0.2s,transform 0.15s,box-shadow 0.2s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(240,165,0,0.3)}
+.btn-outline{background:transparent;color:var(--white);padding:0.95rem 2.5rem;font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:2px;border:1px solid rgba(255,255,255,0.2);cursor:pointer;display:inline-flex;align-items:center;gap:0.5rem;transition:border-color 0.2s,color 0.2s,transform 0.15s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;animation:fadeUp 1s 0.8s ease both;cursor:pointer}
+.hero-scroll span{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gray)}
+.scroll-line{width:1px;height:50px;background:linear-gradient(var(--gold),transparent);animation:scrollAnim 1.5s ease-in-out infinite}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* SECTIONS */
+section{padding:6rem 3rem}
+.section-label{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:2px;line-height:1;color:var(--white)}
+.section-title span{color:var(--gold)}
+.section-body{color:#999;font-size:1rem;line-height:1.8;max-width:640px;margin-top:1rem}
+.divider{width:60px;height:3px;background:var(--gold);margin:1.5rem 0}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:0.6rem 0;overflow:hidden;position:relative}
+.ticker-track{display:flex;gap:4rem;animation:ticker 22s linear infinite;white-space:nowrap}
+.ticker-track span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--black)}
+.ticker-sep{opacity:0.4}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* COURSES */
+.courses{background:var(--dark2)}
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3.5rem}
+.course-card{background:var(--dark3);border:1px solid rgba(240,165,0,0.08);padding:2rem;border-radius:4px;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.25s,box-shadow 0.25s;cursor:default;display:flex;flex-direction:column}
+.course-card:hover{border-color:rgba(240,165,0,0.45);transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+.course-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.4s ease}
+.course-card:hover::before{height:100%}
+.course-card.featured{border-color:var(--gold);background:linear-gradient(160deg,#1a1500,#110e00)}
+.course-badge{display:inline-block;background:var(--gold);color:var(--black);font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.25rem 0.8rem;border-radius:2px;margin-bottom:1rem}
+.course-icon{font-size:2.2rem;margin-bottom:1rem;transition:transform 0.3s}
+.course-card:hover .course-icon{transform:scale(1.15)}
+.course-name{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;letter-spacing:1px;color:var(--white);margin-bottom:0.3rem}
+.course-type{font-size:0.75rem;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.75rem}
+.course-desc{font-size:0.9rem;color:var(--gray);line-height:1.7;flex:1;margin-bottom:1.5rem}
+.course-details{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem}
+.course-detail{font-size:0.82rem;color:#bbb;display:flex;align-items:center;gap:0.5rem}
+.course-detail::before{content:'✓';color:var(--gold);font-weight:700}
+.course-price{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--gold);line-height:1;margin-bottom:0.25rem}
+.course-price-note{font-size:0.75rem;color:var(--gray);margin-bottom:1rem}
+.course-cta{display:block;text-align:center;justify-content:center}
+
+/* PROCESS */
+.process{background:var(--dark)}
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:3rem;position:relative;max-width:700px}
+.timeline::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(var(--gold),rgba(240,165,0,0.1))}
+.timeline-item{display:flex;gap:2rem;padding-bottom:3rem;position:relative}
+.timeline-item:last-child{padding-bottom:0}
+.timeline-dot{width:50px;height:50px;border-radius:50%;background:var(--dark3);border:2px solid rgba(240,165,0,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--gold);transition:background 0.3s,border-color 0.3s;position:relative;z-index:1}
+.timeline-item:hover .timeline-dot{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.timeline-content{padding-top:0.75rem}
+.timeline-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:1px;color:var(--white);margin-bottom:0.3rem}
+.timeline-text{font-size:0.9rem;color:var(--gray);line-height:1.7}
+.timeline-time{font-size:0.7rem;color:var(--gold);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-top:0.5rem}
+
+/* STATS BAND */
+.stats-band{background:linear-gradient(135deg,#0a0a00,#150f00);border-top:1px solid rgba(240,165,0,0.15);border-bottom:1px solid rgba(240,165,0,0.15);padding:5rem 3rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;text-align:center}
+.stat-box{padding:1.5rem;border:1px solid rgba(240,165,0,0.1);border-radius:4px;transition:border-color 0.3s,background 0.3s}
+.stat-box:hover{border-color:rgba(240,165,0,0.35);background:rgba(240,165,0,0.04)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--gold);line-height:1}
+.stat-label{font-size:0.78rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:0.4rem}
+
+/* FAQ */
+.faq{background:var(--dark2)}
+.faq-list{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1px}
+.faq-item{background:var(--dark3);border:1px solid rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;transition:border-color 0.3s}
+.faq-item.open{border-color:rgba(240,165,0,0.3)}
+.faq-question{width:100%;background:none;border:none;padding:1.4rem 1.8rem;display:flex;justify-content:space-between;align-items:center;cursor:pointer;text-align:left;color:var(--white);font-family:'Barlow',sans-serif;font-size:1rem;font-weight:600;transition:color 0.2s}
+.faq-question:hover{color:var(--gold)}
+.faq-item.open .faq-question{color:var(--gold)}
+.faq-icon{width:24px;height:24px;border-radius:50%;border:1px solid rgba(240,165,0,0.4);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--gold);flex-shrink:0;transition:transform 0.3s;line-height:1}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--gold);color:var(--black)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s}
+.faq-item.open .faq-answer{max-height:300px}
+.faq-answer p{padding:0 1.8rem 1.5rem;font-size:0.92rem;color:var(--gray);line-height:1.8}
+
+/* ENROLL FORM */
+.enroll{background:var(--dark)}
+.enroll-inner{max-width:720px;margin:0 auto}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;position:relative}
+.form-group.full{grid-column:1/-1}
+label{font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.required-mark{color:var(--gold)}
+input,select,textarea{background:var(--dark3);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:0.85rem 1rem;border-radius:2px;font-family:'Barlow',sans-serif;font-size:0.95rem;transition:border-color 0.25s,box-shadow 0.25s;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(240,165,0,0.08)}
+input.error,select.error,textarea.error{border-color:#c0392b}
+.field-error{font-size:0.72rem;color:#e74c3c;margin-top:0.2rem;display:none}
+.field-error.show{display:block}
+select option{background:var(--dark3)}
+textarea{resize:vertical;min-height:100px}
+.form-submit{grid-column:1/-1;margin-top:0.5rem}
+.form-note{font-size:0.78rem;color:#555;text-align:center;margin-top:1rem}
+.success-screen{display:none;text-align:center;padding:3rem 1rem}
+.success-screen.show{display:block}
+.success-icon{font-size:4rem;margin-bottom:1rem;animation:popIn 0.5s cubic-bezier(.175,.885,.32,1.275) both}
+@keyframes popIn{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-screen h3{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:3px;color:var(--gold);margin-bottom:0.5rem}
+.success-screen p{color:var(--gray);font-size:1rem;line-height:1.8;max-width:480px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(240,165,0,0.1);padding:2.5rem 3rem}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--gold);letter-spacing:2px}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-size:0.78rem;color:#555;text-decoration:none;text-transform:uppercase;letter-spacing:1px;font-weight:600;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:0.75rem;color:#333;margin-top:1.5rem;text-align:center}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:4rem 1.5rem}
+  .hero{padding:7rem 1.5rem 4.5rem}
+  .hero-stats{gap:1.5rem}
+  .form-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .footer-links{flex-wrap:wrap;justify-content:center}
+  .stats-band{padding:3.5rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#courses" onclick="closeMobile()">Courses</a>
+  <a href="#process" onclick="closeMobile()">How It Works</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
+  <a href="#enroll" onclick="closeMobile()" style="color:var(--gold)">Enroll Now</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">CDL<span> Alpha</span></div>
+  <div class="nav-links">
+    <a href="#courses" class="nav-link">Courses</a>
+    <a href="#process" class="nav-link">How It Works</a>
+    <a href="#stats" class="nav-link">Results</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#enroll" class="nav-link nav-cta">Enroll Now</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span>Now Enrolling — Classes Start Soon</div>
+    <h1>Start Your<span class="gold">CDL Career.</span></h1>
+    <p class="hero-sub">Get your Commercial Driver's License fast with CDL Alpha Driving School. Professional instructors, hands-on training, and a <strong style="color:var(--gold)">job placement network</strong> to launch your trucking career.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num counter" data-target="80" data-prefix="$" data-suffix="K+" data-divide="1">0</div><div class="hero-stat-label">Average CDL salary</div></div>
+      <div><div class="hero-stat-num counter" data-target="700" data-prefix="" data-suffix="K+" data-divide="1">0</div><div class="hero-stat-label">Open driver positions</div></div>
+      <div><div class="hero-stat-num counter" data-target="8" data-prefix="" data-suffix=" wks" data-divide="1">0</div><div class="hero-stat-label">Fastest path to license</div></div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#enroll" class="btn-primary">🚛 Enroll Today</a>
+      <a href="#courses" class="btn-outline">📋 View Courses</a>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span>🚛 CDL Alpha Driving School</span><span class="ticker-sep">◆</span>
+    <span>Class A &amp; Class B Licenses</span><span class="ticker-sep">◆</span>
+    <span>Professional Instructors</span><span class="ticker-sep">◆</span>
+    <span>Job Placement Assistance</span><span class="ticker-sep">◆</span>
+    <span>Flexible Scheduling</span><span class="ticker-sep">◆</span>
+    <span>Grand Opening May 23, 2026</span><span class="ticker-sep">◆</span>
+    <span>Now Enrolling</span><span class="ticker-sep">◆</span>
+    <span>🚛 CDL Alpha Driving School</span><span class="ticker-sep">◆</span>
+    <span>Class A &amp; Class B Licenses</span><span class="ticker-sep">◆</span>
+    <span>Professional Instructors</span><span class="ticker-sep">◆</span>
+    <span>Job Placement Assistance</span><span class="ticker-sep">◆</span>
+    <span>Flexible Scheduling</span><span class="ticker-sep">◆</span>
+    <span>Grand Opening May 23, 2026</span><span class="ticker-sep">◆</span>
+    <span>Now Enrolling</span><span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section class="courses" id="courses">
+  <div class="section-label reveal">Training Programs</div>
+  <h2 class="section-title reveal">Choose Your <span>Course</span></h2>
+  <div class="divider reveal"></div>
+  <p class="section-body reveal">Whether you're brand new to trucking or adding endorsements, we have a program designed to get you road-ready fast.</p>
+  <div class="courses-grid">
+
+    <div class="course-card reveal" style="transition-delay:0.05s">
+      <div class="course-icon">🚛</div>
+      <div class="course-name">Class A CDL</div>
+      <div class="course-type">Full License Program</div>
+      <p class="course-desc">The gold standard for professional truck drivers. Qualifies you to operate combination vehicles over 26,001 lbs — semis, tractor-trailers, tankers, and more.</p>
+      <div class="course-details">
+        <div class="course-detail">160 hours of classroom &amp; range training</div>
+        <div class="course-detail">Pre-trip inspection mastery</div>
+        <div class="course-detail">Backing &amp; maneuvering skills</div>
+        <div class="course-detail">DOT &amp; FMCSA compliance training</div>
+        <div class="course-detail">CDL skills test preparation</div>
+      </div>
+      <div class="course-price">$4,500</div>
+      <div class="course-price-note">Financing available · Payment plans offered</div>
+      <a href="#enroll" class="btn-primary course-cta">Enroll →</a>
+    </div>
+
+    <div class="course-card featured reveal" style="transition-delay:0.1s">
+      <div class="course-badge">⭐ Most Popular</div>
+      <div class="course-icon">🚌</div>
+      <div class="course-name">Class B CDL</div>
+      <div class="course-type">Single Vehicle Program</div>
+      <p class="course-desc">Drive straight trucks, buses, dump trucks, and box trucks. Perfect for local delivery, transit, and construction industries — high demand, great pay.</p>
+      <div class="course-details">
+        <div class="course-detail">120 hours of structured training</div>
+        <div class="course-detail">Air brakes endorsement included</div>
+        <div class="course-detail">Passenger &amp; school bus options</div>
+        <div class="course-detail">Local job placement focus</div>
+        <div class="course-detail">Skills test at state DMV included</div>
+      </div>
+      <div class="course-price">$3,200</div>
+      <div class="course-price-note">Financing available · Payment plans offered</div>
+      <a href="#enroll" class="btn-primary course-cta">Enroll →</a>
+    </div>
+
+    <div class="course-card reveal" style="transition-delay:0.2s">
+      <div class="course-icon">⚡</div>
+      <div class="course-name">Endorsements</div>
+      <div class="course-type">Add-On Training</div>
+      <p class="course-desc">Expand your earning power by adding specialized endorsements to your existing CDL. Hazmat, tanker, and doubles/triples certifications available.</p>
+      <div class="course-details">
+        <div class="course-detail">Hazmat (H) endorsement training</div>
+        <div class="course-detail">Tanker (N) certification</div>
+        <div class="course-detail">Doubles &amp; triples (T) prep</div>
+        <div class="course-detail">Knowledge test coaching</div>
+        <div class="course-detail">Flexible weekend scheduling</div>
+      </div>
+      <div class="course-price">$850</div>
+      <div class="course-price-note">Per endorsement · Bundle discounts available</div>
+      <a href="#enroll" class="btn-outline course-cta">Enroll →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process" id="process">
+  <div class="section-label reveal">Step by Step</div>
+  <h2 class="section-title reveal">How It <span>Works</span></h2>
+  <div class="divider reveal"></div>
+  <p class="section-body reveal">From application to your first paycheck, we guide you every step of the way.</p>
+  <div class="timeline reveal-left" style="margin-top:3rem">
+    <div class="timeline-item">
+      <div class="timeline-dot">1</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Apply Online in 5 Minutes</div>
+        <div class="timeline-text">Fill out the enrollment form below. No experience needed — just a valid driver's license and the drive to succeed.</div>
+        <div class="timeline-time">Day 1</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">2</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Orientation &amp; CLP Application</div>
+        <div class="timeline-text">Attend orientation, complete your medical exam (DOT physical), and apply for your Commercial Learner's Permit at the DMV.</div>
+        <div class="timeline-time">Week 1</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">3</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Classroom &amp; Range Training</div>
+        <div class="timeline-text">Learn federal regulations, vehicle systems, and safety standards. Then get behind the wheel on our practice range with certified instructors.</div>
+        <div class="timeline-time">Weeks 2–5</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">4</div>
+      <div class="timeline-content">
+        <div class="timeline-title">Road Training &amp; Skills Test Prep</div>
+        <div class="timeline-text">Take your skills to public roads and refine every maneuver. We run mock CDL skills tests so you walk in confident on exam day.</div>
+        <div class="timeline-time">Weeks 6–7</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">5</div>
+      <div class="timeline-content">
+        <div class="timeline-title">CDL Exam &amp; Job Placement</div>
+        <div class="timeline-text">Pass your state CDL skills test and get your license. Our job placement team connects you with hiring carriers immediately.</div>
+        <div class="timeline-time">Week 8</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<section class="stats-band" id="stats">
+  <div class="stats-grid">
+    <div class="stat-box reveal">
+      <div class="stat-num counter" data-target="95" data-prefix="" data-suffix="%" data-divide="1">0</div>
+      <div class="stat-label">First-attempt pass rate</div>
+    </div>
+    <div class="stat-box reveal" style="transition-delay:0.1s">
+      <div class="stat-num counter" data-target="8" data-prefix="" data-suffix=" Weeks" data-divide="1">0</div>
+      <div class="stat-label">Average time to license</div>
+    </div>
+    <div class="stat-box reveal" style="transition-delay:0.2s">
+      <div class="stat-num counter" data-target="100" data-prefix="" data-suffix="+" data-divide="1">0</div>
+      <div class="stat-label">Hiring partner carriers</div>
+    </div>
+    <div class="stat-box reveal" style="transition-delay:0.3s">
+      <div class="stat-num counter" data-target="80" data-prefix="$" data-suffix="K Avg" data-divide="1">0</div>
+      <div class="stat-label">Starting salary for grads</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-label reveal">Got Questions?</div>
+  <h2 class="section-title reveal">Frequently Asked <span>Questions</span></h2>
+  <div class="divider reveal"></div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Do I need prior experience to enroll?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer"><p>No experience is required. All you need is a valid driver's license, a clean enough driving record to obtain a CDL, and the ability to pass a DOT medical exam. We train complete beginners every day.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        How long does CDL training take?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer"><p>Our Class A program is 8 weeks and our Class B program is 6 weeks. We offer both full-time (Monday–Friday) and weekend-intensive schedules to fit around your current obligations.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is financing available?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer"><p>Yes. We offer in-house payment plans with low down payments. We also work with third-party financing providers and can help you explore employer-sponsored tuition reimbursement programs at hiring carriers.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What does job placement assistance include?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer"><p>Upon graduation, our job placement team connects you directly with our network of 100+ hiring carriers looking for CDL drivers. We help with resume prep, interview coaching, and introductions to regional and national carriers.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Where is the school located?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer"><p>CDL Alpha is part of a growing franchise network. Grand opening is May 23, 2026. Fill out the enrollment form to get specific location details for the campus nearest you and to lock in early-bird pricing.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What CDL endorsements can I earn?
+        <div class="faq-icon">+</div>
+      </button>
+      <div class="faq-answer"><p>We offer training for Hazardous Materials (H), Tanker Vehicles (N), and Doubles/Triples (T) endorsements. These add-ons significantly increase your earning potential and open doors to specialized trucking careers.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENROLL FORM -->
+<section class="enroll" id="enroll">
+  <div class="enroll-inner">
+    <div class="section-label reveal">Get Started</div>
+    <h2 class="section-title reveal">Enroll <span>Today</span></h2>
+    <div class="divider reveal"></div>
+    <p class="section-body reveal" style="max-width:100%">Take the first step toward your CDL career. Fill out the form below and our enrollment team will contact you within 24 hours.</p>
+
+    <div id="enrollForm">
+      <form class="form-grid" onsubmit="submitForm(event)" novalidate>
+        <div class="form-group">
+          <label>First Name <span class="required-mark">*</span></label>
+          <input type="text" id="f-first" placeholder="John" required>
+          <span class="field-error" id="e-first">First name is required</span>
+        </div>
+        <div class="form-group">
+          <label>Last Name <span class="required-mark">*</span></label>
+          <input type="text" id="f-last" placeholder="Smith" required>
+          <span class="field-error" id="e-last">Last name is required</span>
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="required-mark">*</span></label>
+          <input type="tel" id="f-phone" placeholder="(555) 000-0000" required>
+          <span class="field-error" id="e-phone">Valid phone number required</span>
+        </div>
+        <div class="form-group">
+          <label>Email Address <span class="required-mark">*</span></label>
+          <input type="email" id="f-email" placeholder="john@email.com" required>
+          <span class="field-error" id="e-email">Valid email required</span>
+        </div>
+        <div class="form-group">
+          <label>Course Interested In <span class="required-mark">*</span></label>
+          <select id="f-course" required>
+            <option value="">— Select a Course —</option>
+            <option value="class-a">Class A CDL — $4,500</option>
+            <option value="class-b">Class B CDL — $3,200</option>
+            <option value="endorsement-h">Hazmat (H) Endorsement — $850</option>
+            <option value="endorsement-n">Tanker (N) Endorsement — $850</option>
+            <option value="endorsement-t">Doubles/Triples (T) Endorsement — $850</option>
+            <option value="unsure">Not Sure Yet — Help Me Choose</option>
+          </select>
+          <span class="field-error" id="e-course">Please select a course</span>
+        </div>
+        <div class="form-group">
+          <label>Preferred Schedule</label>
+          <select id="f-schedule">
+            <option value="">— Select Schedule —</option>
+            <option value="full-time">Full-Time (Mon–Fri)</option>
+            <option value="weekend">Weekend Intensive</option>
+            <option value="flexible">Flexible / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>How Did You Hear About Us?</label>
+          <select id="f-source">
+            <option value="">— Select —</option>
+            <option value="google">Google Search</option>
+            <option value="social">Social Media</option>
+            <option value="friend">Friend / Family</option>
+            <option value="employer">Employer / Carrier</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Questions or Comments</label>
+          <textarea id="f-message" placeholder="Anything you'd like us to know..."></textarea>
+        </div>
+        <div class="form-submit full">
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;font-size:1.1rem">🚛 Submit Enrollment Request</button>
+          <p class="form-note">By submitting, you agree to be contacted by CDL Alpha about your enrollment inquiry. We do not sell your information.</p>
+        </div>
+      </form>
+    </div>
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎉</div>
+      <h3>You're In!</h3>
+      <p>Your enrollment request has been received. A CDL Alpha advisor will contact you within <strong style="color:var(--gold)">24 hours</strong> to discuss your program options, schedule, and financing. Get ready to start your new career!</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">CDL <span style="color:var(--white)">Alpha</span></div>
+    <div class="footer-links">
+      <a href="#courses">Courses</a>
+      <a href="#process">How It Works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#enroll">Enroll</a>
+    </div>
+  </div>
+  <div class="footer-copy">&copy; 2026 CDL Alpha Driving School. All rights reserved. | Grand Opening May 23, 2026</div>
+</footer>
+
+<script>
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const s = document.documentElement;
+  const pct = (s.scrollTop || document.body.scrollTop) / (s.scrollHeight - s.clientHeight) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  // Active nav links
+  document.querySelectorAll('.nav-link').forEach(a => {
+    const sec = document.querySelector(a.getAttribute('href'));
+    if (sec) {
+      const r = sec.getBoundingClientRect();
+      a.classList.toggle('active', r.top <= 80 && r.bottom >= 80);
+    }
+  });
+});
+
+// Mobile menu
+function toggleMobile() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobile() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Reveal on scroll
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObs.observe(el));
+
+// Counters
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.done) {
+      e.target.dataset.done = '1';
+      animateCounter(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function step(ts) {
+    const progress = Math.min((ts - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = Math.round(ease * target);
+    el.textContent = prefix + val + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Duplicate ticker for seamless loop
+const track = document.getElementById('ticker');
+if (track) track.innerHTML += track.innerHTML;
+
+// Form submission
+function submitForm(e) {
+  e.preventDefault();
+  let valid = true;
+
+  function check(id, errId, test) {
+    const el = document.getElementById(id);
+    const err = document.getElementById(errId);
+    const ok = test(el.value.trim());
+    el.classList.toggle('error', !ok);
+    if (err) err.classList.toggle('show', !ok);
+    if (!ok) valid = false;
+  }
+
+  check('f-first', 'e-first', v => v.length > 0);
+  check('f-last', 'e-last', v => v.length > 0);
+  check('f-phone', 'e-phone', v => /^[\d\s\(\)\-\+]{7,}$/.test(v));
+  check('f-email', 'e-email', v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+  check('f-course', 'e-course', v => v.length > 0);
+
+  if (!valid) return;
+
+  document.getElementById('enrollForm').style.display = 'none';
+  document.getElementById('successScreen').classList.add('show');
+  window.scrollTo({ top: document.getElementById('enroll').offsetTop - 80, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
