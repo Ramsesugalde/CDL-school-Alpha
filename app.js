@@ -83,8 +83,9 @@
         { quote: 'Los instructores tienen mucha paciencia y explican todo en español. Pasé mi examen del DPS a la primera.', init: 'JR', name: 'José R.', role: 'Class A graduate' },
         { quote: 'Workforce Solutions paid my whole tuition. The school did all the paperwork — I just showed up and trained.', init: 'DB', name: 'Danielle B.', role: 'Class B graduate' }
       ],
-      chatHello: "Howdy! I'm Alpha, the school's assistant. Ask me about prices, requirements, funding or schedules — English o español.",
-      chatChips: ['How much is Class A?', 'Who can pay my tuition?', 'What do I need to enroll?', '¿Hablan español?'],
+      chatHello: "Howdy! I'm Alpha, the school's assistant. I'll walk you through how enrolling works, or you can ask me about prices, requirements, funding or schedules — English o español.",
+      chatWelcomeProcess: "Here's how it works, start to finish:\n1. Reserve your seat online (takes 2 minutes, no payment now).\n2. Visit the school and pay your deposit — $1,000 / $800 / $500 depending on class — it counts toward tuition.\n3. Train: 20 hours in the classroom + 20 hours behind the wheel, about a month.\n4. Take your DPS skills test — we handle your ELDT registration and paperwork.\n5. Graduate and let us help place you with a hiring carrier.\nAsk me anything about a step, or tap \"Reserve Your Spot\" whenever you're ready.",
+      chatChips: ['How does the process work?', 'How much is Class A?', 'Who can pay my tuition?', 'What do I need to enroll?'],
       confSteps: function (dep) { return ['An advisor calls you to confirm your class and start date.', 'Visit the school and pay your ' + dep + ' deposit to lock in your seat.', 'Show up on day one — we handle your ELDT registration and paperwork.']; },
       waEnrollMsg: function (f, className, price) {
         return 'Hi Alpha Driving Academy! I just reserved a spot on the website.\n' +
@@ -167,8 +168,9 @@
         { quote: 'Los instructores tienen mucha paciencia y explican todo en español. Pasé mi examen del DPS a la primera.', init: 'JR', name: 'José R.', role: 'Graduado Clase A' },
         { quote: 'Workforce Solutions pagó toda mi colegiatura. La escuela hizo todo el papeleo — yo solo llegué a entrenar.', init: 'DB', name: 'Danielle B.', role: 'Graduada Clase B' }
       ],
-      chatHello: '¡Hola! Soy Alpha, el asistente de la escuela. Pregúntame sobre precios, requisitos, financiamiento u horarios — español o inglés.',
-      chatChips: ['¿Cuánto cuesta la Clase A?', '¿Quién paga mi colegiatura?', '¿Qué necesito para inscribirme?', 'Do you speak English?'],
+      chatHello: '¡Hola! Soy Alpha, el asistente de la escuela. Te explico cómo funciona el proceso para inscribirte, o pregúntame sobre precios, requisitos, financiamiento u horarios — español o inglés.',
+      chatWelcomeProcess: 'Así funciona, paso a paso:\n1. Aparta tu lugar en línea (toma 2 minutos, sin pago todavía).\n2. Visita la escuela y paga tu depósito — $1,000 / $800 / $500 según la clase — cuenta para tu colegiatura.\n3. Entrena: 20 horas de salón + 20 horas al volante, aproximadamente un mes.\n4. Presenta tu examen de manejo del DPS — nosotros hacemos tu registro ELDT y el papeleo.\n5. Gradúate y te ayudamos a conseguir trabajo con un transportista.\nPregúntame sobre cualquier paso, o toca "Aparta tu lugar" cuando estés listo.',
+      chatChips: ['¿Cómo funciona el proceso?', '¿Cuánto cuesta la Clase A?', '¿Quién paga mi colegiatura?', '¿Qué necesito para inscribirme?'],
       confSteps: function (dep) { return ['Un asesor te llama para confirmar tu clase y fecha de inicio.', 'Visita la escuela y paga tu depósito de ' + dep + ' para asegurar tu asiento.', 'Preséntate el primer día — nosotros hacemos tu registro ELDT y el papeleo.']; },
       waEnrollMsg: function (f, className, price) {
         return '¡Hola Alpha Driving Academy! Acabo de apartar mi lugar en el sitio web.\n' +
@@ -402,6 +404,7 @@
   // ---------- chat ----------
   function botReply(q) {
     var d = t(); var s = q.toLowerCase(); var es = state.lang === 'es';
+    if (/(process|steps|step by step|how does|walk me|funciona|pasos|paso a paso|proceso)/.test(s)) return t().chatWelcomeProcess;
     if (/(price|cost|much|cuesta|cuánto|precio)/.test(s)) return es
       ? 'Clase A: $4,500 · Clase B: $3,500 · Clase C: $1,200. Cada programa incluye 20 hrs de salón + 20 hrs al volante (~1 mes). Apartas con depósito de $1,000 / $800 / $500 que cuenta para tu colegiatura.'
       : 'Class A: $4,500 · Class B: $3,500 · Class C: $1,200. Every program includes 20 hrs classroom + 20 hrs behind the wheel (~1 month). Reserve with a $1,000 / $800 / $500 deposit — it counts toward tuition.';
@@ -422,10 +425,15 @@
       : 'Good question! Call us at (682) 358-8132 and an advisor will help you right away — or tap "Reserve Your Spot" and we\'ll call you.';
   }
 
-  function chatHello() { return { role: 'bot', text: t().chatHello }; }
+  function chatHello() {
+    return [
+      { role: 'bot', text: t().chatHello },
+      { role: 'bot', text: t().chatWelcomeProcess }
+    ];
+  }
 
   function renderChatMsgs() {
-    var msgs = state.chatMsgs || [chatHello()];
+    var msgs = state.chatMsgs || chatHello();
     $('#chat-msgs').innerHTML = msgs.map(function (m) {
       return '<div class="msg ' + (m.role === 'user' ? 'user' : 'bot') + '">' + esc(m.text) + '</div>';
     }).join('');
@@ -443,7 +451,7 @@
 
   function askChat(q) {
     if (!q || !q.trim()) return;
-    if (!state.chatMsgs) state.chatMsgs = [chatHello()];
+    if (!state.chatMsgs) state.chatMsgs = chatHello();
     state.chatMsgs.push({ role: 'user', text: q });
     state.chatMsgs.push({ role: 'bot', text: botReply(q) });
     renderChatMsgs();
@@ -531,7 +539,7 @@
 
     function openChat() {
       $('#chat-overlay').hidden = false;
-      if (!state.chatMsgs) state.chatMsgs = [chatHello()];
+      if (!state.chatMsgs) state.chatMsgs = chatHello();
       renderChatMsgs();
     }
     function closeChat() { $('#chat-overlay').hidden = true; }
