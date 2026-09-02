@@ -1,4 +1,4 @@
-// Alpha Driving Academy — standalone production site logic.
+// Alpha CDL Academy — standalone production site logic.
 // No build step, no external runtime dependency: plain DOM + one dictionary object.
 (function () {
   'use strict';
@@ -10,7 +10,7 @@
   var dict = {
     en: {
       tagline: 'Your Trucking Authority from Day One',
-      heroEyebrow: 'PANTEGO · GRAND PRAIRIE, TEXAS',
+      heroEyebrow: 'PANTEGO, TEXAS',
       heroTitle: 'WE TRAIN YOU TO BECOME A PRO TRUCKER!',
       heroSub: 'Class A, B & C training — classroom, range & road, all in one place. Most students are road-ready in about a month.',
       ctaReserve: 'Reserve Your Spot', ctaCall: 'Call (682) 358-8132', ctaCallShort: 'Call Us', tuition: 'tuition',
@@ -21,12 +21,12 @@
       reviewsHdr: 'STUDENT REVIEWS', reviewsSub: 'Trusted by North Texas drivers for over 4 years',
       chatTeaserTitle: 'Ask Alpha — instant answers', chatTeaserSub: 'Prices, requirements, schedules… ask anything, in English or Spanish.',
       progEyebrow: 'CHOOSE YOUR LICENSE', progTitle: 'PROGRAMS & PRICING',
-      progSub: 'Every program: 20 hours in the classroom + 20 hours behind the wheel. About 1 month — up to 2 at your own pace. Flexible day, evening & weekend hours.',
+      progSub: 'Every program: 20 hours in the classroom + 20 hours behind the wheel. About 1 month — up to 2 at your own pace. Classroom M/W/F 7–10 pm. Driving Sat/Sun 5–8 pm.',
       recommended: 'MOST POPULAR', depositLbl: 'DEPOSIT', durVal: '~1 MO', durLbl: 'DURATION', hoursLbl: 'CLASS+WHEEL',
       planNote: 'Payment plans available · WIOA, VA & employer funding accepted', selectCta: 'Select',
       progFoot: 'Deposits are paid in person at the school and count toward tuition. Training can extend up to 2 months depending on the student — we never rush you.',
       schedEyebrow: 'FLEXIBLE HOURS', schedTitle: 'UPCOMING START DATES',
-      schedSub: 'New groups start every month. Day, evening and weekend schedules — reserve your seat before it fills.',
+      schedSub: 'Classroom Mon/Wed/Fri 7–10 pm at the Pantego office. Driving Sat/Sun 5–8 pm at the Fort Worth yard. Reserve your seat before it fills.',
       reserveShort: 'Reserve', schedFoot: "Seats are confirmed with your deposit at the school. Can't make these dates? Call us — we'll work around your schedule.",
       helpEyebrow: 'WE GOT YOU', helpTitle: 'QUESTIONS & ANSWERS', faqHdr: 'MOST ASKED', stillQ: 'Still have questions? Call us',
       enrollTitle: 'RESERVE YOUR SPOT', steps: ['YOUR INFO', 'CLASS & SCHEDULE', 'REVIEW & RESERVE'], stepOf: 'STEP',
@@ -41,12 +41,12 @@
       loginMsg: "Texting sign-in codes isn't live yet — call or WhatsApp us and we'll pull up your file.",
       chatTitle: 'Ask Alpha', chatOnline: 'Online now', chatPlaceholder: 'Type your question…',
       visitHdr: 'COME SEE US',
-      visitSub: 'Walk in any day — see the trucks, meet the instructors, and reserve your seat on the spot. Minutes from Arlington, Grand Prairie & Fort Worth.',
-      hoursHdr: 'HOURS', hoursVal: 'Mon–Sat · 9:00 AM – 7:00 PM', dirCta: 'Directions',
+      visitSub: 'Office and classroom: 3221 W Pioneer Pkwy, Pantego. Maneuvers yard: 900 TX-183, Fort Worth (not the office). Minutes from Arlington and Grand Prairie.',
+      hoursHdr: 'HOURS', hoursVal: 'Classroom M/W/F 7–10 pm · Driving Sat/Sun 5–8 pm', yardNote: 'Maneuvers yard (not the office): 900 TX-183, Fort Worth, TX 76116.', dirCta: 'Directions',
       applyChip: 'LIMITED SPOTS', applyTitle: 'YOUR NEW CAREER IS ONE MONTH AWAY',
       applySub: "Trucking pays. In about 4 weeks you can be licensed, road-ready and earning — and your tuition may cost you nothing out of pocket. Don't wait for the next group to fill.",
       applyFoot: 'PERSONALIZED ATTENTION',
-      googleSub: 'Alpha Driving Academy · Pantego, TX', googleRead: 'Read our reviews', googleLeave: 'Leave a review',
+      googleSub: 'Alpha CDL Academy · Pantego, TX', googleRead: 'Read our reviews', googleLeave: 'Leave a review',
       socialHdr: 'FOLLOW THE SCHOOL', shareCta: 'Share with a friend',
       eldtTitle: 'FMCSA ELDT Registered Training Provider',
       eldtSub: 'Listed on the federal Training Provider Registry. Our curriculum meets all Texas DPS and federal ELDT requirements — your training counts, everywhere in the U.S.',
@@ -57,25 +57,25 @@
       progNames: ['CLASS A CDL', 'CLASS B CDL', 'CLASS C'],
       progVehicles: ['Tractor-trailers & semis — the top-earning license', 'Box trucks, buses & dump trucks', 'Standard cars — get your Texas driver license'],
       incAB: ['20 hrs classroom + 20 hrs behind the wheel', 'Complete ELDT training — DPS & FMCSA compliant', 'Classroom, range & road — all in one place', 'Job placement assistance when you pass'],
-      incC: ['20 hrs classroom + 20 hrs behind the wheel', 'Patient bilingual instructors', 'Practice on real DPS test routes', 'Flexible day, evening & weekend hours'],
-      hourNames: ['Day', 'Evening', 'Weekend'],
-      startOpts: ['Sep 7, 2026 (Day)', 'Sep 12, 2026 (Weekend)', 'Sep 14, 2026 (Evening)', 'Oct 5, 2026 (Day)'],
+      incC: ['20 hrs classroom + 20 hrs behind the wheel', 'Patient bilingual instructors', 'Practice on real DPS test routes', 'Classroom M/W/F 7–10 pm · driving Sat/Sun 5–8 pm'],
+      hourNames: ['Classroom', 'Driving'],
+      startOpts: ['Sep 4, 2026 (Classroom M/W/F)', 'Sep 5, 2026 (Driving Sat/Sun)', 'Sep 7, 2026 (Classroom M/W/F)', 'Oct 5, 2026 (Classroom M/W/F)'],
       heardOpts: ['Google', 'Facebook / Instagram', 'TikTok', 'Friend or family', 'Drove by the school'],
       txdlOpts: ['Yes', 'Not yet'],
       seats: { few: 'seats left — filling fast', some: 'seats left', open: 'Seats open' },
       sched: [
-        { mon: 'SEP', day: '7', cls: 'Class A', grp: 'Day group', time: 'Mon–Fri · 9:00 AM – 3:00 PM', seats: '3', level: 'few', hours: 'Day' },
-        { mon: 'SEP', day: '12', cls: 'Class B', grp: 'Weekend group', time: 'Sat & Sun · 8:00 AM – 4:00 PM', seats: '5', level: 'some', hours: 'Weekend' },
-        { mon: 'SEP', day: '14', cls: 'Class A', grp: 'Evening group', time: 'Mon–Thu · 6:00 PM – 9:30 PM', seats: '8', level: 'some', hours: 'Evening' },
-        { mon: 'SEP', day: '21', cls: 'Class C', grp: 'Flexible', time: 'By appointment — you pick the hours', seats: '', level: 'open', hours: 'Day' },
-        { mon: 'OCT', day: '5', cls: 'Class A', grp: 'Day group', time: 'Mon–Fri · 9:00 AM – 3:00 PM', seats: '', level: 'open', hours: 'Day' }
+        { mon: 'SEP', day: '4', cls: 'Class A', grp: 'Classroom', time: 'Fri · 7:00 – 10:00 PM · Pantego office', seats: '4', level: 'few', hours: 'Classroom' },
+        { mon: 'SEP', day: '5', cls: 'Class A', grp: 'Driving / maneuvers', time: 'Sat · 5:00 – 8:00 PM · Fort Worth yard', seats: '5', level: 'some', hours: 'Driving' },
+        { mon: 'SEP', day: '7', cls: 'Class B', grp: 'Classroom', time: 'Mon · 7:00 – 10:00 PM · Pantego office', seats: '6', level: 'some', hours: 'Classroom' },
+        { mon: 'SEP', day: '12', cls: 'Class A', grp: 'Driving / maneuvers', time: 'Sat · 5:00 – 8:00 PM · Fort Worth yard', seats: '', level: 'open', hours: 'Driving' },
+        { mon: 'OCT', day: '5', cls: 'Class A', grp: 'Classroom', time: 'Mon · 7:00 – 10:00 PM · Pantego office', seats: '', level: 'open', hours: 'Classroom' }
       ],
       faqs: [
         { q: 'Do I need any experience to start?', a: 'None at all. We train complete beginners — 20 hours in the classroom and 20 hours behind the wheel with an instructor next to you, from day one to your DPS road test.' },
         { q: 'What do I need to enroll?', a: 'A valid Texas driver license (for CDL programs), being 18+ (21+ to drive interstate), and a DOT physical — we help you schedule it. Bring your ID and we handle the rest of the paperwork.' },
         { q: 'How long does it take?', a: 'About 1 month: 20 classroom hours + 20 behind-the-wheel hours. It can take up to 2 months depending on your pace and schedule — we never rush you.' },
         { q: 'Who can pay my tuition?', a: 'WIOA / Workforce Solutions, VA / GI Bill for veterans, employer sponsorships, and third-party financing. We also offer in-house payment plans. Ask us — most students qualify for something.' },
-        { q: 'How does the deposit work?', a: 'You reserve your seat with a deposit paid in person at the school: $1,000 for Class A, $800 for Class B, $500 for Class C. It counts toward your tuition.' },
+        { q: 'How does the deposit work?', a: 'You reserve your seat with a deposit paid in person at the school: $500 for Class A, Class B, or Class C. It counts toward your tuition.' },
         { q: 'Will you help me find a job?', a: 'Yes. We offer job placement assistance with carrier partners hiring in DFW. Many students have offers before they finish the program.' }
       ],
       reviews: [
@@ -84,18 +84,18 @@
         { quote: 'Workforce Solutions paid my whole tuition. The school did all the paperwork — I just showed up and trained.', init: 'DB', name: 'Danielle B.', role: 'Class B graduate' }
       ],
       chatHello: "Howdy! I'm Alpha, the school's assistant. I'll walk you through how enrolling works, or you can ask me about prices, requirements, funding or schedules — English o español.",
-      chatWelcomeProcess: "Here's how it works, start to finish:\n1. Reserve your seat online (takes 2 minutes, no payment now).\n2. Visit the school and pay your deposit — $1,000 / $800 / $500 depending on class — it counts toward tuition.\n3. Train: 20 hours in the classroom + 20 hours behind the wheel, about a month.\n4. Take your DPS skills test — we handle your ELDT registration and paperwork.\n5. Graduate and let us help place you with a hiring carrier.\nAsk me anything about a step, or tap \"Reserve Your Spot\" whenever you're ready.",
+      chatWelcomeProcess: "Here's how it works, start to finish:\n1. Reserve your seat online (takes 2 minutes, no payment now).\n2. Visit the school and pay your deposit — $500 — it counts toward tuition.\n3. Train: 20 hours in the classroom + 20 hours behind the wheel, about a month.\n4. Take your DPS skills test — we handle your ELDT registration and paperwork.\n5. Graduate and let us help place you with a hiring carrier.\nAsk me anything about a step, or tap \"Reserve Your Spot\" whenever you're ready.",
       chatChips: ['How does the process work?', 'How much is Class A?', 'Who can pay my tuition?', 'What do I need to enroll?'],
       confSteps: function (dep) { return ['An advisor calls you to confirm your class and start date.', 'Visit the school and pay your ' + dep + ' deposit to lock in your seat.', 'Show up on day one — we handle your ELDT registration and paperwork.']; },
       waEnrollMsg: function (f, className, price) {
-        return 'Hi Alpha Driving Academy! I just reserved a spot on the website.\n' +
+        return 'Hi Alpha CDL Academy! I just reserved a spot on the website.\n' +
           'Name: ' + f.name + '\nPhone: ' + f.phone + (f.email ? '\nEmail: ' + f.email : '') +
           '\nClass: ' + className + ' (' + price + ')\nPreferred start: ' + f.start +
           '\nPreferred hours: ' + f.hours + '\nTexas DL: ' + f.txdl + '\nLanguage: ' + f.langPref;
       }
     },
     es: {
-      tagline: 'Tu autoridad en el volante desde el día uno', heroEyebrow: 'PANTEGO · GRAND PRAIRIE, TEXAS',
+      tagline: 'Tu autoridad en el volante desde el día uno', heroEyebrow: 'PANTEGO, TEXAS',
       heroTitle: '¡TE ENTRENAMOS PARA SER UN TROQUERO PRO!',
       heroSub: 'Clases A, B y C — salón, patio y carretera, todo en un solo lugar. La mayoría de los estudiantes están listos en aproximadamente un mes.',
       ctaReserve: 'Aparta tu lugar', ctaCall: 'Llama (682) 358-8132', ctaCallShort: 'Llámanos', tuition: 'colegiatura',
@@ -106,12 +106,12 @@
       reviewsHdr: 'RESEÑAS DE ESTUDIANTES', reviewsSub: 'La confianza del norte de Texas por más de 4 años',
       chatTeaserTitle: 'Pregúntale a Alpha', chatTeaserSub: 'Precios, requisitos, horarios… pregunta lo que sea, en español o inglés.',
       progEyebrow: 'ELIGE TU LICENCIA', progTitle: 'PROGRAMAS Y PRECIOS',
-      progSub: 'Cada programa: 20 horas de salón + 20 horas al volante. Aproximadamente 1 mes — hasta 2 a tu propio ritmo. Horarios flexibles de día, tarde y fin de semana.',
+      progSub: 'Cada programa: 20 horas de salón + 20 horas al volante. Aproximadamente 1 mes — hasta 2 a tu propio ritmo. Salón L/M/V 7–10 pm. Manejo sáb/dom 5–8 pm.',
       recommended: 'MÁS POPULAR', depositLbl: 'DEPÓSITO', durVal: '~1 MES', durLbl: 'DURACIÓN', hoursLbl: 'SALÓN+VOLANTE',
       planNote: 'Planes de pago disponibles · Aceptamos WIOA, VA y patrocinio del empleador', selectCta: 'Elegir',
       progFoot: 'El depósito se paga en persona en la escuela y cuenta para tu colegiatura. El entrenamiento puede extenderse hasta 2 meses según el estudiante — nunca te apuramos.',
       schedEyebrow: 'HORARIOS FLEXIBLES', schedTitle: 'PRÓXIMAS FECHAS DE INICIO',
-      schedSub: 'Nuevos grupos cada mes. Horarios de día, tarde y fin de semana — aparta tu asiento antes de que se llene.',
+      schedSub: 'Salón lun/mié/vie 7–10 pm en la oficina de Pantego. Manejo sáb/dom 5–8 pm en el yard de Fort Worth. Aparta tu asiento antes de que se llene.',
       reserveShort: 'Apartar', schedFoot: 'Tu asiento se confirma con el depósito en la escuela. ¿No puedes en estas fechas? Llámanos — nos ajustamos a tu horario.',
       helpEyebrow: 'AQUÍ TE AYUDAMOS', helpTitle: 'PREGUNTAS Y RESPUESTAS', faqHdr: 'LO MÁS PREGUNTADO', stillQ: '¿Más preguntas? Llámanos',
       enrollTitle: 'APARTA TU LUGAR', steps: ['TUS DATOS', 'CLASE Y HORARIO', 'REVISAR Y APARTAR'], stepOf: 'PASO',
@@ -126,12 +126,12 @@
       loginMsg: 'El código por mensaje aún no está activo — llámanos o escríbenos por WhatsApp y buscamos tu expediente.',
       chatTitle: 'Pregúntale a Alpha', chatOnline: 'En línea', chatPlaceholder: 'Escribe tu pregunta…',
       visitHdr: 'VISÍTANOS',
-      visitSub: 'Ven cualquier día — conoce los camiones, habla con los instructores y aparta tu asiento ese mismo día. A minutos de Arlington, Grand Prairie y Fort Worth.',
-      hoursHdr: 'HORARIO', hoursVal: 'Lun–Sáb · 9:00 AM – 7:00 PM', dirCta: 'Cómo llegar',
+      visitSub: 'Oficina y salón: 3221 W Pioneer Pkwy, Pantego. Patio de maniobras: 900 TX-183, Fort Worth (no es la oficina). A minutos de Arlington y Grand Prairie.',
+      hoursHdr: 'HORARIO', hoursVal: 'Salón L/M/V 7–10 pm · Manejo sáb/dom 5–8 pm', yardNote: 'Patio de maniobras (no es la oficina): 900 TX-183, Fort Worth, TX 76116.', dirCta: 'Cómo llegar',
       applyChip: 'CUPO LIMITADO', applyTitle: 'TU NUEVA CARRERA ESTÁ A UN MES',
       applySub: 'El troque paga bien. En unas 4 semanas puedes tener tu licencia y estar ganando — y tu colegiatura podría no costarte nada de tu bolsillo. No esperes a que se llene el siguiente grupo.',
       applyFoot: 'ATENCIÓN PERSONALIZADA',
-      googleSub: 'Alpha Driving Academy · Pantego, TX', googleRead: 'Lee nuestras reseñas', googleLeave: 'Deja tu reseña',
+      googleSub: 'Alpha CDL Academy · Pantego, TX', googleRead: 'Lee nuestras reseñas', googleLeave: 'Deja tu reseña',
       socialHdr: 'SÍGUENOS', shareCta: 'Comparte con un amigo',
       eldtTitle: 'Proveedor de Entrenamiento ELDT Registrado (FMCSA)',
       eldtSub: 'Registrados en el Training Provider Registry federal. Nuestro plan de estudios cumple con todos los requisitos de Texas DPS y ELDT federales — tu entrenamiento vale en todo EE.UU.',
@@ -142,25 +142,25 @@
       progNames: ['CDL CLASE A', 'CDL CLASE B', 'CLASE C'],
       progVehicles: ['Tráilers y semis — la licencia que más paga', 'Camiones de caja, autobuses y de volteo', 'Autos estándar — obtén tu licencia de Texas'],
       incAB: ['20 hrs de salón + 20 hrs al volante', 'Entrenamiento ELDT completo — cumple con DPS y FMCSA', 'Salón, patio y carretera — todo en un lugar', 'Ayuda para colocarte en un trabajo al terminar'],
-      incC: ['20 hrs de salón + 20 hrs al volante', 'Instructores bilingües y pacientes', 'Práctica en rutas reales del examen DPS', 'Horarios flexibles de día, tarde y fin de semana'],
-      hourNames: ['Día', 'Tarde', 'Fin de semana'],
-      startOpts: ['7 Sep 2026 (Día)', '12 Sep 2026 (Fin de semana)', '14 Sep 2026 (Tarde)', '5 Oct 2026 (Día)'],
+      incC: ['20 hrs de salón + 20 hrs al volante', 'Instructores bilingües y pacientes', 'Práctica en rutas reales del examen DPS', 'Salón L/M/V 7–10 pm · manejo sáb/dom 5–8 pm'],
+      hourNames: ['Salón', 'Manejo'],
+      startOpts: ['4 Sep 2026 (Salón L/M/V)', '5 Sep 2026 (Manejo sáb/dom)', '7 Sep 2026 (Salón L/M/V)', '5 Oct 2026 (Salón L/M/V)'],
       heardOpts: ['Google', 'Facebook / Instagram', 'TikTok', 'Amigo o familiar', 'Pasé por la escuela'],
       txdlOpts: ['Sí', 'Todavía no'],
       seats: { few: 'asientos — se llena rápido', some: 'asientos disponibles', open: 'Asientos abiertos' },
       sched: [
-        { mon: 'SEP', day: '7', cls: 'Clase A', grp: 'Grupo de día', time: 'Lun–Vie · 9:00 AM – 3:00 PM', seats: '3', level: 'few', hours: 'Día' },
-        { mon: 'SEP', day: '12', cls: 'Clase B', grp: 'Fin de semana', time: 'Sáb y Dom · 8:00 AM – 4:00 PM', seats: '5', level: 'some', hours: 'Fin de semana' },
-        { mon: 'SEP', day: '14', cls: 'Clase A', grp: 'Grupo de tarde', time: 'Lun–Jue · 6:00 PM – 9:30 PM', seats: '8', level: 'some', hours: 'Tarde' },
-        { mon: 'SEP', day: '21', cls: 'Clase C', grp: 'Flexible', time: 'Por cita — tú eliges las horas', seats: '', level: 'open', hours: 'Día' },
-        { mon: 'OCT', day: '5', cls: 'Clase A', grp: 'Grupo de día', time: 'Lun–Vie · 9:00 AM – 3:00 PM', seats: '', level: 'open', hours: 'Día' }
+        { mon: 'SEP', day: '4', cls: 'Clase A', grp: 'Salón', time: 'Vie · 7:00 – 10:00 PM · Oficina Pantego', seats: '4', level: 'few', hours: 'Salón' },
+        { mon: 'SEP', day: '5', cls: 'Clase A', grp: 'Manejo / patio', time: 'Sáb · 5:00 – 8:00 PM · Yard Fort Worth', seats: '5', level: 'some', hours: 'Manejo' },
+        { mon: 'SEP', day: '7', cls: 'Clase B', grp: 'Salón', time: 'Lun · 7:00 – 10:00 PM · Oficina Pantego', seats: '6', level: 'some', hours: 'Salón' },
+        { mon: 'SEP', day: '12', cls: 'Clase A', grp: 'Manejo / patio', time: 'Sáb · 5:00 – 8:00 PM · Yard Fort Worth', seats: '', level: 'open', hours: 'Manejo' },
+        { mon: 'OCT', day: '5', cls: 'Clase A', grp: 'Salón', time: 'Lun · 7:00 – 10:00 PM · Oficina Pantego', seats: '', level: 'open', hours: 'Salón' }
       ],
       faqs: [
         { q: '¿Necesito experiencia para empezar?', a: 'Para nada. Entrenamos desde cero — 20 horas de salón y 20 horas al volante con un instructor a tu lado, desde el día uno hasta tu examen del DPS.' },
         { q: '¿Qué necesito para inscribirme?', a: 'Licencia de conducir de Texas vigente (para programas CDL), tener 18+ (21+ para rutas interestatales) y el examen físico DOT — te ayudamos a agendarlo. Trae tu identificación y nosotros hacemos el resto del papeleo.' },
         { q: '¿Cuánto tiempo toma?', a: 'Aproximadamente 1 mes: 20 horas de salón + 20 horas al volante. Puede tomar hasta 2 meses según tu ritmo y horario — nunca te apuramos.' },
         { q: '¿Quién puede pagar mi colegiatura?', a: 'WIOA / Workforce Solutions, VA / GI Bill para veteranos, patrocinio de empleadores y financiamiento externo. También ofrecemos planes de pago. Pregúntanos — la mayoría califica para algo.' },
-        { q: '¿Cómo funciona el depósito?', a: 'Apartas tu asiento con un depósito pagado en persona en la escuela: $1,000 Clase A, $800 Clase B, $500 Clase C. Cuenta para tu colegiatura.' },
+        { q: '¿Cómo funciona el depósito?', a: 'Apartas tu asiento con un depósito pagado en persona en la escuela: $500 Clase A, Clase B o Clase C. Cuenta para tu colegiatura.' },
         { q: '¿Me ayudan a encontrar trabajo?', a: 'Sí. Ofrecemos ayuda de colocación con transportistas que contratan en DFW. Muchos estudiantes tienen ofertas antes de terminar.' }
       ],
       reviews: [
@@ -169,11 +169,11 @@
         { quote: 'Workforce Solutions pagó toda mi colegiatura. La escuela hizo todo el papeleo — yo solo llegué a entrenar.', init: 'DB', name: 'Danielle B.', role: 'Graduada Clase B' }
       ],
       chatHello: '¡Hola! Soy Alpha, el asistente de la escuela. Te explico cómo funciona el proceso para inscribirte, o pregúntame sobre precios, requisitos, financiamiento u horarios — español o inglés.',
-      chatWelcomeProcess: 'Así funciona, paso a paso:\n1. Aparta tu lugar en línea (toma 2 minutos, sin pago todavía).\n2. Visita la escuela y paga tu depósito — $1,000 / $800 / $500 según la clase — cuenta para tu colegiatura.\n3. Entrena: 20 horas de salón + 20 horas al volante, aproximadamente un mes.\n4. Presenta tu examen de manejo del DPS — nosotros hacemos tu registro ELDT y el papeleo.\n5. Gradúate y te ayudamos a conseguir trabajo con un transportista.\nPregúntame sobre cualquier paso, o toca "Aparta tu lugar" cuando estés listo.',
+      chatWelcomeProcess: 'Así funciona, paso a paso:\n1. Aparta tu lugar en línea (toma 2 minutos, sin pago todavía).\n2. Visita la escuela y paga tu depósito — $500 — cuenta para tu colegiatura.\n3. Entrena: 20 horas de salón + 20 horas al volante, aproximadamente un mes.\n4. Presenta tu examen de manejo del DPS — nosotros hacemos tu registro ELDT y el papeleo.\n5. Gradúate y te ayudamos a conseguir trabajo con un transportista.\nPregúntame sobre cualquier paso, o toca "Aparta tu lugar" cuando estés listo.',
       chatChips: ['¿Cómo funciona el proceso?', '¿Cuánto cuesta la Clase A?', '¿Quién paga mi colegiatura?', '¿Qué necesito para inscribirme?'],
       confSteps: function (dep) { return ['Un asesor te llama para confirmar tu clase y fecha de inicio.', 'Visita la escuela y paga tu depósito de ' + dep + ' para asegurar tu asiento.', 'Preséntate el primer día — nosotros hacemos tu registro ELDT y el papeleo.']; },
       waEnrollMsg: function (f, className, price) {
-        return '¡Hola Alpha Driving Academy! Acabo de apartar mi lugar en el sitio web.\n' +
+        return '¡Hola Alpha CDL Academy! Acabo de apartar mi lugar en el sitio web.\n' +
           'Nombre: ' + f.name + '\nTeléfono: ' + f.phone + (f.email ? '\nCorreo: ' + f.email : '') +
           '\nClase: ' + className + ' (' + price + ')\nFecha de inicio: ' + f.start +
           '\nHorario: ' + f.hours + '\nLicencia de Texas: ' + f.txdl + '\nIdioma: ' + f.langPref;
@@ -182,8 +182,8 @@
   };
 
   var LETTERS = ['A', 'B', 'C'];
-  var PRICES = { A: '$4,500', B: '$3,500', C: '$1,200' };
-  var DEPOSITS = { A: '$1,000', B: '$800', C: '$500' };
+  var PRICES = { A: '$5,999', B: '$5,000', C: '$1,600' };
+  var DEPOSITS = { A: '$500', B: '$500', C: '$500' };
 
   var state = {
     lang: 'en',
@@ -406,8 +406,8 @@
     var d = t(); var s = q.toLowerCase(); var es = state.lang === 'es';
     if (/(process|steps|step by step|how does|walk me|funciona|pasos|paso a paso|proceso)/.test(s)) return t().chatWelcomeProcess;
     if (/(price|cost|much|cuesta|cuánto|precio)/.test(s)) return es
-      ? 'Clase A: $4,500 · Clase B: $3,500 · Clase C: $1,200. Cada programa incluye 20 hrs de salón + 20 hrs al volante (~1 mes). Apartas con depósito de $1,000 / $800 / $500 que cuenta para tu colegiatura.'
-      : 'Class A: $4,500 · Class B: $3,500 · Class C: $1,200. Every program includes 20 hrs classroom + 20 hrs behind the wheel (~1 month). Reserve with a $1,000 / $800 / $500 deposit — it counts toward tuition.';
+      ? 'Clase A: $5,999 · Clase B: $5,000 · Clase C: $1,600. Cada programa incluye 20 hrs de salón + 20 hrs al volante (~1 mes). Apartas con depósito de $500 que cuenta para tu colegiatura.'
+      : 'Class A: $5,999 · Class B: $5,000 · Class C: $1,600. Every program includes 20 hrs classroom + 20 hrs behind the wheel (~1 month). Reserve with a $500 deposit — it counts toward tuition.';
     if (/(pay|fund|wioa|va |gi bill|workforce|paga|financ|colegiatura)/.test(s)) return es
       ? 'La mayoría califica para ayuda: WIOA / Workforce Solutions, VA / GI Bill (veteranos), patrocinio del empleador, planes de pago o financiamiento. Llámanos al (682) 358-8132 y revisamos tu caso en minutos.'
       : "Most students qualify for help: WIOA / Workforce Solutions, VA / GI Bill (veterans), employer sponsorship, payment plans or financing. Call (682) 358-8132 and we'll check your case in minutes.";
@@ -418,8 +418,8 @@
       ? '¡Claro! Todas las clases están disponibles en español o inglés — tú eliges.'
       : 'Yes — every class is available in English or Spanish, your choice. ¡Todas las clases están disponibles en español!';
     if (/(when|schedule|date|horario|cuando|cuándo|fecha)/.test(s)) return es
-      ? 'Nuevos grupos cada mes: día, tarde y fin de semana. Los próximos inician el 7, 12 y 14 de septiembre. Ve la pestaña Horarios o llámanos.'
-      : 'New groups start every month: day, evening and weekend. The next ones start Sep 7, 12 and 14 — check the Schedule tab or call us.';
+      ? 'Salón lun/mié/vie 7–10 pm. Manejo sáb/dom 5–8 pm. Próximos inicios 4, 5 y 7 de septiembre. Ve la pestaña Horarios o llámanos.'
+      : 'Classroom Mon/Wed/Fri 7–10 pm. Driving Sat/Sun 5–8 pm. Next starts Sep 4, 5 and 7 — check the Schedule tab or call us.';
     return es
       ? 'Buena pregunta. Llámanos al (682) 358-8132 y un asesor te atiende de inmediato — o toca "Aparta tu lugar" y nosotros te llamamos.'
       : 'Good question! Call us at (682) 358-8132 and an advisor will help you right away — or tap "Reserve Your Spot" and we\'ll call you.';
@@ -552,9 +552,9 @@
     $('#btn-share').addEventListener('click', function () {
       var es = state.lang === 'es';
       var data = {
-        title: 'Alpha Driving Academy',
+        title: 'Alpha CDL Academy',
         text: es ? 'Saca tu CDL en ~1 mes en Pantego, TX. Clases en español e inglés. (682) 358-8132 #AlphaCDLSchool' : 'Get your CDL in ~1 month in Pantego, TX. Classes in English & Spanish. (682) 358-8132 #AlphaCDLSchool',
-        url: 'https://www.cdlalphadrivingschool.com/'
+        url: 'https://www.cdlalphadrivingschool.org/'
       };
       if (navigator.share) navigator.share(data).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(data.text + ' ' + data.url);
