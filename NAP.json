@@ -1,0 +1,23 @@
+{
+  "name": "Alpha CDL Academy Driving School",
+  "street": "3221 W Pioneer Pkwy",
+  "city": "Pantego",
+  "state": "TX",
+  "zip": "76013",
+  "phone": "(682) 358-8132",
+  "website": "https://www.cdlalphadrivingschool.org/",
+  "tiktok": "https://www.tiktok.com/@aphacdlacademy",
+  "prices": {"A": 5999, "B": 5000, "C": 1600, "deposit": 500},
+  "hours": {
+    "classroom": "Mon Wed Fri 19:00-22:00",
+    "driving": "Sat Sun 17:00-20:00"
+  },
+  "yard": {
+    "name": "Alpha CDL Academy Maneuvers Yard",
+    "street": "900 TX-183",
+    "city": "Fort Worth",
+    "zip": "76116",
+    "note": "Maneuvers only. Office is Pantego."
+  },
+  "doNotUse": ["Euless", "$4500", "$3500", "$2500"]
+}
